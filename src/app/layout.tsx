@@ -2,6 +2,7 @@ import "../styles/globals.css";
 
 //👇 Import Open Sans font
 import { Open_Sans, Roboto_Mono } from 'next/font/google'
+import NextAuthSessionProvider from "./providers/SessionProvider";
 
 const openSans = Open_Sans({
   subsets: ['latin'],
@@ -24,7 +25,7 @@ export default function RootLayout({
   }) {
     return (
       <html lang="en" className={`${openSans.variable} ${robotoMono.variable} font-sans`} >
-        <body>{children}</body>
+        <body><NextAuthSessionProvider>{children}</NextAuthSessionProvider></body>
       </html>
     )
   }

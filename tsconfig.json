@@ -24,8 +24,10 @@
     ],
     "baseUrl": "src/",
     "paths": {
-      "@/styles/*": ["styles/*"],
-      "@/components/*": ["components/*"]
+      "@/styles/*": ["app/styles/*"],
+      "@/components/*": ["app/components/*"],
+      "@/api/*": ["app/api/*"],
+      "@/utils/*": ["app/utils/*"],
     }
   },
   "include": [
