@@ -6,14 +6,14 @@ export default function Component() {
     return (
       <>
         Signed in as {session.user.email} <br />
-        <button onClick={() => signOut()}>Sign out</button>
+        <button onClick={() => signOut()} className="bg-slate-500-200 shadow-sm rounded-sm border-black w-60">Sign out</button>
       </>
     )
   }
   return (
     <>
       Not signed in <br />
-      <button onClick={() => signIn()}>Sign in</button>
+      <button onClick={() => signIn()} className="bg-amber-200 shadow-sm rounded-sm border-black  w-60" >Sign in</button>
     </>
   )
 }
