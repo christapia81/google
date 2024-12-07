@@ -7,7 +7,7 @@ import { getAnalytics } from 'firebase/analytics'
 const FirebaseContext = createContext(null)
 export { FirebaseContext }
 
-export default ({ children }) => {
+export default firebase = ({ children }) => {
 
     const firebaseConfig = {
         apiKey: "AIzaSyCX9qmR1pkXS0IRNGChnlh9g5Yg-bOmppI",

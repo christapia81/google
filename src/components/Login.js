@@ -1,7 +1,7 @@
 'use client'
 
-import React, { useContext, useEffect, useState } from 'react';
-import { signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
+import React, { useContext, useEffect, /* useState */ } from 'react';
+/* import { signInWithPopup, GoogleAuthProvider } from "firebase/auth"; */
 import { FirebaseContext } from '@/utils/firebase'
 import { getAuth, connectAuthEmulator } from "firebase/auth";
 
@@ -12,7 +12,7 @@ const Login = () => {
     const firebase = useContext(FirebaseContext)
     const auth = getAuth(firebase);
     connectAuthEmulator(auth, "http://127.0.0.1:9099");
-    const handleGoogleLogin = () => {
+   /*  const handleGoogleLogin = () => {
         const provider = new GoogleAuthProvider();
         signInWithPopup(auth, provider)
             .then((result) => {
@@ -23,10 +23,10 @@ const Login = () => {
             .catch((error) => {
                 console.error("Google Login Error:", error);
             });
-    };
+    }; */
 
 
-    const [events, setEvents] = useState(null);
+/*     const [events, setEvents] = useState(null); */
 
     useEffect(() => {
         const script = document.createElement("script");
