@@ -3,7 +3,7 @@ import "../styles/globals.css";
 //👇 Import Open Sans font
 import { Open_Sans, Roboto_Mono } from 'next/font/google'
 import NextAuthSessionProvider from "./providers/SessionProvider";
-
+import FirebaseProvider from "@/utils/firebase"
 const openSans = Open_Sans({
   subsets: ['latin'],
   display: 'swap',
@@ -25,7 +25,8 @@ export default function RootLayout({
   }) {
     return (
       <html lang="en" className={`${openSans.variable} ${robotoMono.variable} font-sans`} >
-        <body><NextAuthSessionProvider>{children}</NextAuthSessionProvider></body>
+     
+        <body><FirebaseProvider><NextAuthSessionProvider>{children}</NextAuthSessionProvider></FirebaseProvider></body>
       </html>
     )
   }
