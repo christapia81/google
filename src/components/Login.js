@@ -11,22 +11,22 @@ const SCOPES =
 const Login = () => {
     const firebase = useContext(FirebaseContext)
     const auth = getAuth(firebase);
-   // connectAuthEmulator(auth, "http://127.0.0.1:9099");
-   /*  const handleGoogleLogin = () => {
-        const provider = new GoogleAuthProvider();
-        signInWithPopup(auth, provider)
-            .then((result) => {
-                const { user } = result;
-                console.log("Google Login Success:", user);
-                // Handle user information and redirection here
-            })
-            .catch((error) => {
-                console.error("Google Login Error:", error);
-            });
-    }; */
+    // connectAuthEmulator(auth, "http://127.0.0.1:9099");
+    /*  const handleGoogleLogin = () => {
+         const provider = new GoogleAuthProvider();
+         signInWithPopup(auth, provider)
+             .then((result) => {
+                 const { user } = result;
+                 console.log("Google Login Success:", user);
+                 // Handle user information and redirection here
+             })
+             .catch((error) => {
+                 console.error("Google Login Error:", error);
+             });
+     }; */
 
 
-/*     const [events, setEvents] = useState(null); */
+    const [events, setEvents] = useState(null);
 
     useEffect(() => {
         const script = document.createElement("script");
@@ -37,7 +37,7 @@ const Login = () => {
         document.body.appendChild(script);
 
         script.addEventListener("load", () => {
-           // if (window.gapi) handleClientLoad();
+            // if (window.gapi) handleClientLoad();
         });
     }, []);
 
@@ -115,6 +115,13 @@ const Login = () => {
             end: item.end.dateTime || item.end.date,
         }));
     };
+
+
+    useEffect(() => {
+        console.log(events)
+
+
+    }, [events])
 
     return (
         <div className="login-container">
