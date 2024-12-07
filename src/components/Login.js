@@ -66,7 +66,7 @@ const Login = () => {
         } else {
             // Get events if access token is found without sign in popup
             fetch(
-                `https://www.googleapis.com/calendar/v3/calendars/primary/events?key=${API_KEY}&orderBy=startTime&singleEvents=true`,
+                `https://www.googleapis.com/calendar/v3/calendars/primary/events?key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}&orderBy=startTime&singleEvents=true`,
                 {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("access_token")}`,
