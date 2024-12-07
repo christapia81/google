@@ -11,7 +11,7 @@ const SCOPES =
 const Login = () => {
     const firebase = useContext(FirebaseContext)
     const auth = getAuth(firebase);
-    connectAuthEmulator(auth, "http://127.0.0.1:9099");
+   // connectAuthEmulator(auth, "http://127.0.0.1:9099");
    /*  const handleGoogleLogin = () => {
         const provider = new GoogleAuthProvider();
         signInWithPopup(auth, provider)
