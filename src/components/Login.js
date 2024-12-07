@@ -2,15 +2,15 @@
 
 import React, { useContext, useEffect, useState, /* useState */ } from 'react';
 /* import { signInWithPopup, GoogleAuthProvider } from "firebase/auth"; */
-import { FirebaseContext } from '@/utils/firebase'
+//import { FirebaseContext } from '@/utils/firebase'
 import { getAuth, connectAuthEmulator } from "firebase/auth";
 
 const SCOPES =
     "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/calendar";
 
 const Login = () => {
-    const firebase = useContext(FirebaseContext)
-    const auth = getAuth(firebase);
+    //const firebase = useContext(FirebaseContext)
+   // const auth = getAuth(firebase);
     // connectAuthEmulator(auth, "http://127.0.0.1:9099");
     /*  const handleGoogleLogin = () => {
          const provider = new GoogleAuthProvider();
@@ -46,6 +46,7 @@ const Login = () => {
     };
 
     const openSignInPopup = () => {
+        console.log("openSignInPopup NEXT_PUBLIC_GOOGLE_CLIENT_ID:", process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID)
         window.gapi.auth2.authorize(
             { client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID, scope: SCOPES },
             (res) => {
@@ -64,6 +65,7 @@ const Login = () => {
         if (!localStorage.getItem("access_token")) {
             openSignInPopup();
         } else {
+            console.log("Fetching events API KEY:", process.env.NEXT_PUBLIC_GOOGLE_API_KEY)
             // Get events if access token is found without sign in popup
             fetch(
                 `https://www.googleapis.com/calendar/v3/calendars/primary/events?key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}&orderBy=startTime&singleEvents=true`,
