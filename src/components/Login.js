@@ -135,7 +135,7 @@ const Login = () => {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ code:'sample"', summary, description, location, start_date, end_date, timezone })
+            body: JSON.stringify({ code, summary, description, location, start_date, end_date, timezone })
         });
         const content = await rawResponse.json();
         console.log("From Create Calendar:", content)
