@@ -9,7 +9,7 @@ import { FirebaseContext } from '@/utils/firebase'
     "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/calendar";
  */
 const Login = () => {
-    const {auth} = useContext(FirebaseContext)
+    const { auth } = useContext(FirebaseContext)
     //const auth = getAuth(firebase);
 
     /*  
@@ -28,7 +28,7 @@ const Login = () => {
 
 
     const [user, setUser] = useState(null)
-
+    const [code, setCode] = useState(null)
     useEffect(() => {
         if (auth) {
             auth.onAuthStateChanged(function (user) {
@@ -46,38 +46,42 @@ const Login = () => {
     }, [])
 
 
- /*    useEffect(() => {
-        fetch(`api/google`).then((res) => {
-          if (res.status !== 200) {
-            throw new Error(data.message)
-          }
-          res.json().then((data) => {
-            if (data?.googleApiInstance) {
-              GoogleService.initService(data.googleApiInstance)
-            }
-          })
-        })
-      }, []) */
+    /*    useEffect(() => {
+           fetch(`api/google`).then((res) => {
+             if (res.status !== 200) {
+               throw new Error(data.message)
+             }
+             res.json().then((data) => {
+               if (data?.googleApiInstance) {
+                 GoogleService.initService(data.googleApiInstance)
+               }
+             })
+           })
+         }, []) */
 
 
-      useEffect(() => {
-       if(user){
-        console.log(`${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}`)
-        const client = google.accounts.oauth2.initCodeClient({
-            client_id: `${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}`,
-            scope: 'https://www.googleapis.com/auth/calendar.readonly',
-            access_type: 'offline',
-            ux_mode: 'popup',
-            callback: async (response) => {
-              // Send response.code to your backend
-              console.log("must send to backend")
-              console.log(response)
-            }
-          });
-          client.requestCode();
-       }
-      }, [user])
-      
+    useEffect(() => {
+        if (user) {
+            console.log(`${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}`)
+            const client = google.accounts.oauth2.initCodeClient({
+                client_id: `${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}`,
+                scope: 'https://www.googleapis.com/auth/calendar.readonly',
+                access_type: 'offline',
+                ux_mode: 'popup',
+                callback: async (response) => {
+                    // Send response.code to your backend
+                    console.log("must send to backend")
+                    console.log(response)
+                    const _code = response.code
+                    setCode(_code)
+
+
+                }
+            });
+            client.requestCode();
+        }
+    }, [user])
+
 
     const handleGoogleLogin = () => {
         const provider = new GoogleAuthProvider();
@@ -102,7 +106,20 @@ const Login = () => {
                 console.error("Google Logout Error:", error);
             });
     };
+    const handleCreateCalendarEntry = async () => {
 
+        // post to calendar
+        const rawResponse = await fetch('api/google/calendar/create', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ code: code, })
+        });
+        const content = await rawResponse.json();
+        console.log("From Create Calendar:", content)
+    }
     /* 
         const [events, setEvents] = useState(null);
     
@@ -203,16 +220,24 @@ const Login = () => {
     
         }, [events]) */
 
-    return (
+    return (<>
         <div className="login-container">
-                       {user ? <button onClick={handleLogout} className='shadow p-3 rounded bg-yellow-200'>
+            {user ? <button onClick={handleLogout} className='shadow p-3 rounded bg-yellow-200'>
                 Logout ({user.email})
             </button> : <button onClick={handleGoogleLogin} className='shadow p-3 rounded bg-slate-200'>
                 Login with Google
             </button>
             }
 
+
+
         </div>
+        {user && <div className="calendar-container m-3 pb-3">
+            <button onClick={handleCreateCalendarEntry} className='shadow p-3 rounded bg-green-300-200'>
+                Create Calendar Entry for  ({user.email})
+            </button>
+        </div>}
+    </>
     );
 };
 
