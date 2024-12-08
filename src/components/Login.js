@@ -79,7 +79,7 @@ const Login = () => {
             console.log(`${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}`)
             const client = google.accounts.oauth2.initCodeClient({
                 client_id: `${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}`,
-                scope: 'https://www.googleapis.com/auth/calendar.readonly',
+                scope: 'https://www.googleapis.com/auth/calendar',
                 access_type: 'offline',
                 ux_mode: 'popup',
                 callback: async (response) => {
