@@ -25,7 +25,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${openSans.variable} ${robotoMono.variable} font-sans`} >
-      <meta http-equiv="Content-Security-Policy" content="default-src * self blob: data: gap:; style-src * self 'unsafe-inline' blob: data: gap:; script-src-elem * self 'unsafe-inline' blob: data: gap:; script-src * 'self' 'unsafe-eval' 'unsafe-inline' blob: data: gap:; object-src * 'self' blob: data: gap:; img-src * self 'unsafe-inline' blob: data: gap:; connect-src self * 'unsafe-inline' blob: data: gap:; frame-src * self blob: data: gap:;"></meta>
+      
+      {/* <meta http-equiv="Content-Security-Policy" content="default-src * self blob: data: gap:; style-src * self 'unsafe-inline' blob: data: gap:; script-src-elem * self 'unsafe-inline' blob: data: gap:; script-src * 'self' 'unsafe-eval' 'unsafe-inline' blob: data: gap:; object-src * 'self' blob: data: gap:; img-src * self 'unsafe-inline' blob: data: gap:; connect-src self * 'unsafe-inline' blob: data: gap:; frame-src * self blob: data: gap:;"></meta>
+       */}
+       <script src="https://accounts.google.com/gsi/client" async></script>
       <body><FirebaseProvider><NextAuthSessionProvider>{children}</NextAuthSessionProvider></FirebaseProvider></body>
     </html>
   )
