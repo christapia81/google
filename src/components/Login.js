@@ -94,7 +94,7 @@ const Login = () => {
 
 
             //"2024-12-14T19:30:00+05:30" 
-            const dateString = (new Date()).toISOString().replace('Z', toHoursAndMinutes(new Date().getTimezoneOffset()))
+            const dateString = (new Date()).toISOString().split(".")[0]+toHoursAndMinutes(new Date().getTimezoneOffset())
             setStart_date(dateString)
             setEnd_date(dateString)
 
