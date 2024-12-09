@@ -15,9 +15,9 @@ export async function POST(request) {
       'postmessage'
     );
 
-    //const { tokens } = await oAuth2Client.getToken(code);
+    const { tokens } = await oAuth2Client.getToken(code);
 
-    const { access_token, refresh_token } = code;
+    const { access_token, refresh_token } = tokens;
 
     oAuth2Client.setCredentials({ access_token, refresh_token });
 
