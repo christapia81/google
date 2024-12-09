@@ -38,7 +38,10 @@ export default ({ children }) => {
     if (env == "development") {
         console.log("Environment is ", env)
         //https://dev.to/ilumin/fix-firebase-error-authemulator-config-failed-mng
+        // run in terminal: firebase emulators:start
         async function setupEmulators(auth) {
+
+
             const authUrl = 'http://localhost:9099'
             await fetch(authUrl)
             connectAuthEmulator(auth, 'http://localhost:9099', { disableWarnings: true })

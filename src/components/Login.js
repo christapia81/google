@@ -60,43 +60,29 @@ const Login = () => {
     }, [])
 
 
-    /*    useEffect(() => {
-           fetch(`api/google`).then((res) => {
-             if (res.status !== 200) {
-               throw new Error(data.message)
-             }
-             res.json().then((data) => {
-               if (data?.googleApiInstance) {
-                 GoogleService.initService(data.googleApiInstance)
-               }
-             })
-           })
-         }, []) */
-
-
     useEffect(() => {
         if (user) {
 
-            /* console.log(`${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}`)
-             const client = google.accounts.oauth2.initCodeClient({
-                 client_id: `${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}`,
-                 scope: 'https://www.googleapis.com/auth/calendar',
-                 access_type: 'offline',
-                 ux_mode: 'popup',
-                 callback: async (response) => {
- 
-                     const _code = response.code
-                     setCode(_code)
- 
- 
-                 }
-             });
-             client.requestCode(); */
+            console.log(`${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}`)
+            const client = google.accounts.oauth2.initCodeClient({
+                client_id: `${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}`,
+                scope: 'https://www.googleapis.com/auth/calendar',
+                access_type: 'offline',
+                ux_mode: 'popup',
+                callback: async (response) => {
+
+                    const _code = response.code
+                    setCode(_code)
+
+
+                }
+            });
+            client.requestCode();
 
 
             /*  const { accessToken, refreshToken } = user.stsTokenManager
              setCode({ access_token: accessToken, refresh_token: refreshToken })
-  */
+    */
 
             //"2024-12-14T19:30:00+05:30" 
             //const dateString = (new Date()).toISOString().split(".")[0]+toHoursAndMinutes(new Date().getTimezoneOffset())
@@ -120,6 +106,8 @@ const Login = () => {
             .catch((error) => {
                 console.error("Google Login Error:", error);
             });
+
+
     };
 
     const handleLogout = () => {
@@ -134,35 +122,17 @@ const Login = () => {
     };
     const handleCreateCalendarEntry = async () => {
 
-
-        console.log(`${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}`)
-        const client = google.accounts.oauth2.initCodeClient({
-            client_id: `${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}`,
-            scope: 'https://www.googleapis.com/auth/calendar',
-            access_type: 'offline',
-            ux_mode: 'popup',
-            callback: async (response) => {
-
-                const _code = response.code
-                //setCode(_code)
-                // post to calendar
-                const rawResponse = await fetch('api/google/calendar/create', {
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ code: _code, summary, description, location, start_date, end_date, timezone })
-                });
-                const content = await rawResponse.json();
-                console.log("From Create Calendar:", content)
-
-
-            }
+        // post to calendar
+        const rawResponse = await fetch('api/google/calendar/create', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ code, summary, description, location, start_date, end_date, timezone })
         });
-        client.requestCode();
-
-
+        const content = await rawResponse.json();
+        console.log("From Create Calendar:", content)
     }
     /* 
         const [events, setEvents] = useState(null);
