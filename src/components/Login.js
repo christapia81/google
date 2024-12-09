@@ -95,6 +95,13 @@ const Login = () => {
     }, [user])
 
 
+    useEffect(() => {
+        if (code) {
+            console.log("Setting CODE to: ", code)
+        }
+    }, [code])
+
+
     const handleGoogleLogin = () => {
         const provider = new GoogleAuthProvider();
         signInWithPopup(auth, provider)
@@ -123,6 +130,10 @@ const Login = () => {
     const handleCreateCalendarEntry = async () => {
 
         // post to calendar
+
+
+        console.log("Sending CODE: ", code)
+
         const rawResponse = await fetch('api/google/calendar/create', {
             method: 'POST',
             headers: {
