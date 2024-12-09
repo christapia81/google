@@ -76,22 +76,27 @@ const Login = () => {
 
     useEffect(() => {
         if (user) {
-            console.log(`${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}`)
-            const client = google.accounts.oauth2.initCodeClient({
-                client_id: `${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}`,
-                scope: 'https://www.googleapis.com/auth/calendar',
-                access_type: 'offline',
-                ux_mode: 'popup',
-                callback: async (response) => {
 
-                    const _code = response.code
-                    setCode(_code)
+            /* console.log(`${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}`)
+             const client = google.accounts.oauth2.initCodeClient({
+                 client_id: `${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}`,
+                 scope: 'https://www.googleapis.com/auth/calendar',
+                 access_type: 'offline',
+                 ux_mode: 'popup',
+                 callback: async (response) => {
+ 
+                     const _code = response.code
+                     setCode(_code)
+ 
+ 
+                 }
+             });
+             client.requestCode(); */
 
 
-                }
-            });
-            client.requestCode();
-
+            /*  const { accessToken, refreshToken } = user.stsTokenManager
+             setCode({ access_token: accessToken, refresh_token: refreshToken })
+  */
 
             //"2024-12-14T19:30:00+05:30" 
             //const dateString = (new Date()).toISOString().split(".")[0]+toHoursAndMinutes(new Date().getTimezoneOffset())
@@ -129,17 +134,35 @@ const Login = () => {
     };
     const handleCreateCalendarEntry = async () => {
 
-        // post to calendar
-        const rawResponse = await fetch('api/google/calendar/create', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ code, summary, description, location, start_date, end_date, timezone })
+
+        console.log(`${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}`)
+        const client = google.accounts.oauth2.initCodeClient({
+            client_id: `${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}`,
+            scope: 'https://www.googleapis.com/auth/calendar',
+            access_type: 'offline',
+            ux_mode: 'popup',
+            callback: async (response) => {
+
+                const _code = response.code
+                //setCode(_code)
+                // post to calendar
+                const rawResponse = await fetch('api/google/calendar/create', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ code: _code, summary, description, location, start_date, end_date, timezone })
+                });
+                const content = await rawResponse.json();
+                console.log("From Create Calendar:", content)
+
+
+            }
         });
-        const content = await rawResponse.json();
-        console.log("From Create Calendar:", content)
+        client.requestCode();
+
+
     }
     /* 
         const [events, setEvents] = useState(null);
